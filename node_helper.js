@@ -120,9 +120,11 @@ module.exports = NodeHelper.create({
         for (var i = 0; i < this.config.devices.length; i++) {
             var device = this.config.devices[i];
             if (device.hasOwnProperty("macAddress")) {
-                if (macAddress.toUpperCase() === device.macAddress.toUpperCase()){
-                    this.log(this.name + " found device by MAC Address", device);
-                    return device;
+                for (var j = 0; j < device.macAddress.length; j++) {
+                    if (macAddress.toUpperCase() === device.macAddress[j].toUpperCase()) {
+                        this.log(this.name + " found device by MAC Address", device);
+                        return device;
+                    }
                 }
             }
         }
