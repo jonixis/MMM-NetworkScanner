@@ -209,14 +209,18 @@ Module.register("MMM-NetworkScanner", {
 				deviceRow.appendChild(deviceCell);
 
 				// When last seen
-				if ((self.config.showLastSeen && device.lastSeen  && !self.config.showLastSeenWhenOffline && device.icon !== "ghost") ||
-					(self.config.showLastSeen && !device.lastSeen &&  self.config.showLastSeenWhenOffline)) {
-					var dateCell = document.createElement("td");
-					dateCell.classList.add("date", "dimmed", "light");
-					if (typeof device.lastSeen !== 'undefined') {
-						dateCell.innerHTML = device.lastSeen.fromNow();
+				if (device.icon === "ghost") {
+					deviceRow.classList.add("ghost-row");
+				} else {
+					if ((self.config.showLastSeen && device.lastSeen  && !self.config.showLastSeenWhenOffline) ||
+							(self.config.showLastSeen && !device.lastSeen &&  self.config.showLastSeenWhenOffline)) {
+						var dateCell = document.createElement("td");
+						dateCell.classList.add("date", "dimmed", "light");
+						if (typeof device.lastSeen !== 'undefined') {
+							dateCell.innerHTML = device.lastSeen.fromNow();
+						}
+						deviceRow.appendChild(dateCell);
 					}
-					deviceRow.appendChild(dateCell);
 				}
 
 				deviceTable.appendChild(deviceRow);

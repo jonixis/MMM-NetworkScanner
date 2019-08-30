@@ -11,3 +11,9 @@
   padding-left: 30px;
   text-align: right;
 }
+
+.MMM-NetworkScanner .ghost-row {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+}
