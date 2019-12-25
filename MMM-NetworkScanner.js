@@ -32,6 +32,33 @@ Module.register("MMM-NetworkScanner", {
 		debug: false,
 	},
 
+  getCommands: function(commander) {
+    commander.add({
+      command: 'whoshome',
+      callback: 'command_whoshome',
+      description: 'Show who is home'
+    });
+  },
+
+  command_whoshome: function(command, handler) {
+    handler.say('TEXT', this.createWhoIsHomeMessage(), { parse_mode: "Markdown" });
+  },
+
+  createWhoIsHomeMessage: function() {
+    let message = '🏡 Who\'s home 🏡\n\n';
+    for (const device of this.networkDevices) {
+      message += device.online ? '✅ ' : '⏺ ';
+      message += '*' + device.name + '* ';
+      if (device.lastSeen) {
+        message += '- `(' + device.lastSeen.fromNow() + ')`';
+      }
+      message += '\n';
+    }
+    message += '\n';
+
+    return message;
+  },
+
 	// Subclass start method.
 	start: function() {
 		Log.info("Starting module: " + this.name);
